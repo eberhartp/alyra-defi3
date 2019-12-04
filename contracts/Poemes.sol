@@ -1,4 +1,4 @@
-pragma solidity 0.5.11;
+pragma solidity 0.5.12;
 
 contract Poemes {
     struct Poeme {
@@ -24,6 +24,10 @@ contract Poemes {
     mapping(address => mapping(address => bool)) private transferApproval;
     mapping(uint256 => address) private tokenApproval;
 
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
     function totalSupply() external view returns(uint256) {
         return nombreTotalPoemes;
     }
@@ -46,6 +50,7 @@ contract Poemes {
         proprietaireNombrePoemes[_from]--;
         proprietaireNombrePoemes[_to]++;
         poemeVersProprietaire[_tokenId] = _to;
+        emit Transfer(_from, _to, _tokenId);
     }
 
     function approve(address _to, uint256 _tokenId) external {
@@ -53,6 +58,7 @@ contract Poemes {
         require(poemeExiste[_tokenId], 'Poem does not exist');
         require(poemeVersProprietaire[_tokenId] == msg.sender, 'Not owner of poem');
         tokenApproval[_tokenId] = _to;
+        emit Approval(msg.sender, _to, _tokenId);
     }
 
     function getApproved(uint256 _tokenId) external view returns(address) {
@@ -63,6 +69,7 @@ contract Poemes {
     function setApprovalForAll(address operator, bool approved) external {
         require(operator != address(0), 'Operator address is null');
         transferApproval[msg.sender][operator] = approved;
+        emit ApprovalForAll(msg.sender, operator, approved);
     }
 
     function isApprovedForAll(address owner, address operator) external view returns(bool){
