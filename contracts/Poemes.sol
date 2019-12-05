@@ -80,6 +80,7 @@ contract Poemes {
 
     function random() internal view returns(uint256) {
         return uint256(blockhash(block.number - 1));
+        // return 0;
     }
 
     function generatePoem() external payable returns(uint256) {
@@ -93,5 +94,6 @@ contract Poemes {
         proprietaireNombrePoemes[msg.sender]++;
         poemeExiste[tokenId] = true;
         poemeVersProprietaire[tokenId] = msg.sender;
+        return tokenId;
     }
 }
