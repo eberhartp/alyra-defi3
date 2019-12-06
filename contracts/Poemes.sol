@@ -16,13 +16,14 @@ contract Poemes {
 // ["Le marbre pour l\'acide est une friandise","d\'aucuns par dessus tout prisent les escargots","sur la place un forain de feu se gargarise","qui sait si le requin boulotte les turbots","Du voisin le Papou suçotte l\'apophyse","que n\'a pas dévoré la horde des mulots?","le gourmet en salade avale la  cytise","l\'enfant pur aux yeux bleus aime les berlingots?","Le loup est amateur de coq et de cocotte","le chat fait un festin de têtes de linotte","le chemin vicinal se nourrit de crottin","On a bu du pinard à toutes les époques","grignoter des bretzels distrait bien des colloques","mais rien ne vaut grillé le morceau de boudin"],
 // ["Lorsque tout est fini lorsque l\'on agonise","lorsque le marbrier astique nos tombeaux","des êtres indécis vous parlent sans franchise","et tout vient signifier la fin des haricots","On vous fait devenir une orde marchandise","on prépare la route aux pensers sépulcraux","de la mort on vous greffe une orde bâtardise","la mite a grignoté tissus os et rideaux","Le brave a beau crier ah cré nom saperlotte","le lâche peut arguer de sa mine pâlotte","les croque-morts sont là pour se mettre au turbin","Cela considérant ô lecteur tu suffoques","comptant tes abattis  lecteur tu te disloques","toute chose pourtant doit avoir une fin"]];
 
-    mapping(uint256 => address) private poemeVersProprietaire;
+    mapping(uint256 => address) public poemeVersProprietaire;
     mapping(uint256 => bool) private poemeExiste;
-    mapping(address => uint256) private proprietaireNombrePoemes;
+    mapping(address => uint256) public proprietaireNombrePoemes;
+    mapping(address => uint256[]) public proprietairePoemesId;
+    mapping(address => mapping(address => bool)) public transferApproval;
+    mapping(uint256 => address) public tokenApproval;
     uint256 private nombreTotalPoemes;
 
-    mapping(address => mapping(address => bool)) private transferApproval;
-    mapping(uint256 => address) private tokenApproval;
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
@@ -74,7 +75,7 @@ contract Poemes {
 
     function isApprovedForAll(address owner, address operator) external view returns(bool){
         require(owner != address(0), 'Owner adress is null');
-        require(owner != address(0), 'Operator adress is null');
+        require(operator != address(0), 'Operator adress is null');
         return transferApproval[owner][operator];
     }
 
@@ -94,6 +95,11 @@ contract Poemes {
         proprietaireNombrePoemes[msg.sender]++;
         poemeExiste[tokenId] = true;
         poemeVersProprietaire[tokenId] = msg.sender;
+        proprietairePoemesId[msg.sender].push(tokenId);
         return tokenId;
+    }
+
+    function poemExists(uint256 poemId) external view returns(bool){
+        return poemeExiste[poemId];
     }
 }
