@@ -1,8 +1,9 @@
 const { BN, ether } = require("@openzeppelin/test-helpers");
 const { expect } = require("chai");
 const Poemes = artifacts.require("Poemes");
+const AchatVente = artifacts.require("AchatVente");
 
-contract("Poemes", function(accounts){
+/*contract("Poemes", function(accounts){
     const owner = accounts[0];
     const recipient = accounts[1];
     const sender = accounts[2];
@@ -151,21 +152,79 @@ contract("Poemes", function(accounts){
         //Verification recipient n'a plus l'approval
         expect(await this.PoemesInstance.tokenApproval.call(poemIdTest)).to.not.equal(recipient);
     });
+})
+*/
 
+contract("AchatVente", function(accounts){
+    const owner = accounts[0];
+    const buyer = accounts[1];
+    const poemPrice = ether("0.1");
 
-//     it("a la propriété d'un poème", async function() {
-//         let poemId = await this.PoemesInstance.generatePoem.call({from : _owner, value : poemPrice});
-//         console.log(poemId);
-//         // console.log(this.PoemesInstance);
-//         // console.log(poemId.toNumber());
-//         // console.log(0x3FFFFFFFFFF.toString());
-//         expect(await this.PoemesInstance.totalSupply()).to.be.bignumber.equal(new BN('1'));
-//         // let poems = await this.PoemesInstance.totalSupply();
-//         let poemOwner = await this.PoemesInstance.ownerOf(poemId);
-//         let poemCount = await this.PoemesInstance.balanceOf(_owner);
-//         // console.log(poems.toNumber());
-//         console.log(poemOwner);
-//         console.log(poemCount.toNumber());
-//         // expect().to.equal(_owner);  
-//     });
+    //Avant chaque test unitaire  
+    beforeEach(async function() {
+        this.PoemesInstance = await Poemes.new();
+        this.AchatVenteInstance = await AchatVente.new(this.PoemesInstance.address);
+    });
+
+    //Test 12
+    it("test fonction putOnSale", async function() {
+        //Generation poeme par recipient
+        await this.PoemesInstance.generatePoem({from: owner, value: poemPrice});
+
+        //Recuperation ID du poeme par mapping proprietairePoemesId
+        let poemIdTest = await this.PoemesInstance.proprietairePoemesId.call(owner, 0);
+
+        //Enregistrement états mapping avant lancement fonction putOnSale
+        let isForSaleBefore = await this.AchatVenteInstance.isForSale.call(poemIdTest);
+        let priceBefore = await this.AchatVenteInstance.price.call(poemIdTest);
+
+        //Execution fonction putOnSale
+        await this.AchatVenteInstance.putOnSale(poemIdTest, poemPrice, {from: owner});
+        
+        //Enregistrement états mapping après lancement fonction putOnSale
+        let isForSaleAfter = await this.AchatVenteInstance.isForSale.call(poemIdTest);
+        let priceAfter = await this.AchatVenteInstance.price.call(poemIdTest);
+        let sellerAfter = await this.AchatVenteInstance.seller.call(poemIdTest);
+
+        //Tests
+        expect(isForSaleBefore).to.equal(false);
+        expect(isForSaleAfter).to.equal(true);
+        expect(priceAfter).to.be.bignumber.equal(priceBefore.add(poemPrice));
+        expect(sellerAfter).to.equal(owner);
+    });
+
+    //Test 13
+    it("test fonction buy", async function() {
+        console.log('owner:', owner);
+        console.log('buyer:', buyer);
+        
+        //Generation poeme par recipient
+        await this.PoemesInstance.generatePoem({from: owner, value: ether("0.1")});
+
+        //Recuperation ID du poeme par mapping proprietairePoemesId
+        let poemIdTest = await this.PoemesInstance.proprietairePoemesId.call(owner, 0);
+        console.log('poemIdTest:', poemIdTest);
+
+        //Execution fonction putOnSale
+        await this.AchatVenteInstance.putOnSale(poemIdTest, poemPrice, {from: owner});
+
+        //Lancement fonction approve owner/buyer
+        await this.PoemesInstance.approve(buyer, poemIdTest, {from: owner});
+
+        //Enregistrement états mapping avant lancement fonction buy
+        let ownerBalanceBefore = await this.PoemesInstance.balanceOf.call(owner);
+        let isForSaleBefore = await this.AchatVenteInstance.isForSale.call(poemIdTest);
+
+        //Execution fonction buy
+        await this.AchatVenteInstance.buy(poemIdTest, {from: buyer, value: poemPrice});
+        
+        //Enregistrement états mapping après lancement fonction buy
+        let ownerBalanceAfter = await this.PoemesInstance.balanceOf.call(owner);
+        let isForSaleAfter = await this.AchatVenteInstance.isForSale.call(poemIdTest);
+
+        //Tests
+        expect(isForSaleBefore).to.equal(true);
+        expect(isForSaleAfter).to.equal(false);
+        expect(ownerBalanceAfter).to.be.bignumber.equal(ownerBalanceBefore.add(poemPrice));
+    });
 })

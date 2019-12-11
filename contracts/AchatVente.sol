@@ -5,7 +5,7 @@ import "./Poemes.sol";
 contract AchatVente {
     mapping(uint256=>bool) public isForSale;
     mapping(uint256=>uint256) public price;
-    mapping(uint256=>address payable) private seller;
+    mapping(uint256=>address payable) public seller;
     Poemes private poemes;
 
     constructor (Poemes _poemes) public {
@@ -13,7 +13,7 @@ contract AchatVente {
     }
 
     function putOnSale(uint256 _tokenId, uint256 _price) external {
-        require(poemes.ownerOf(tokenId) == msg.sender, 'Not owner of token');
+        require(poemes.ownerOf(_tokenId) == msg.sender, 'Not owner of token');
         isForSale[_tokenId] = true;
         price[_tokenId] = _price;
         seller[_tokenId] = msg.sender;
