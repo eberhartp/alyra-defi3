@@ -152,6 +152,18 @@ contract("Poemes", function(accounts){
         //Verification recipient n'a plus l'approval
         expect(await this.PoemesInstance.tokenApproval.call(poemIdTest)).to.not.equal(recipient);
     });
+
+    it("affiche le poème", async function() {
+        //Generation poeme par owner
+        await this.PoemesInstance.generatePoem({from: owner, value: ether("0.1")});
+
+        //Recuperation ID du poeme
+        let poemIdTest = await this.PoemesInstance.proprietairePoemesId.call(owner, 0);
+
+        for (let i = 0; i < 14; i++) {
+            console.log(await this.PoemesInstance.getVerse.call(poemIdTest, i));
+        }
+    });
 })
 
 contract("AchatVente", function(accounts){
@@ -203,8 +215,8 @@ contract("AchatVente", function(accounts){
         //Execution fonction putOnSale
         await this.AchatVenteInstance.putOnSale(poemIdTest, poemPrice, {from: owner});
 
-        //Lancement fonction approve owner/buyer
-        await this.PoemesInstance.approve(buyer, poemIdTest, {from: owner});
+        //Lancement fonction approve owner/AchatVente
+        await this.PoemesInstance.approve(this.AchatVenteInstance.address, poemIdTest, {from: owner});
 
         //Enregistrement états mapping avant lancement fonction buy
         let ownerBalanceBefore = await this.PoemesInstance.balanceOf.call(owner);

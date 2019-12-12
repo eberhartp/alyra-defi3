@@ -6,9 +6,9 @@ contract AchatVente {
     mapping(uint256=>bool) public isForSale;
     mapping(uint256=>uint256) public price;
     mapping(uint256=>address payable) public seller;
-    mapping(uint256=>uint256) public bestOffer;
-    mapping(uint256=>address) public buyer;
-    mapping(uint256=>bool) public hasOffer;
+    // mapping(uint256=>uint256) public bestOffer;
+    // mapping(uint256=>address) public buyer;
+    // mapping(uint256=>bool) public hasOffer;
     Poemes private poemes;
 
     event Sold(address indexed from, address indexed to, uint256 indexed tokenId);
@@ -23,8 +23,8 @@ contract AchatVente {
         isForSale[_tokenId] = true;
         price[_tokenId] = _price;
         seller[_tokenId] = msg.sender;
-        bestOffer[_tokenId] = 0;
-        hasOffer[_tokenId] = false;
+        // bestOffer[_tokenId] = 0;
+        // hasOffer[_tokenId] = false;
     }
 
     function buy(uint256 _tokenId) external payable {
@@ -33,6 +33,7 @@ contract AchatVente {
         poemes.safeTransferFrom(seller[_tokenId], msg.sender, _tokenId);
         seller[_tokenId].transfer(msg.value);
         isForSale[_tokenId] = false;
+        emit Sold(seller[_tokenId], msg.sender, _tokenId);
     }
 
     // function makeOffer(uint256 _tokenId) external payable {
