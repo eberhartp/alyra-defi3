@@ -46,7 +46,7 @@ contract Poemes {
         require(_to != address(0), 'Address to is null');
         require(poemeExiste[_tokenId], 'Poem does not exist');
         require(poemeVersProprietaire[_tokenId] == _from, 'From address is not owner of poem');
-        require(msg.sender == _from || transferApproval[_from][msg.sender] || tokenApproval[_tokenId] == msg.sender, 'Unapproved');
+        require(msg.sender == _from || transferApproval[_from][msg.sender] || tokenApproval[_tokenId] == _to, 'Unapproved');
         tokenApproval[_tokenId] = address(0);
         proprietaireNombrePoemes[_from]--;
         proprietaireNombrePoemes[_to]++;
