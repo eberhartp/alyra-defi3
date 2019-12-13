@@ -6,9 +6,7 @@ contract AchatVente {
     mapping(uint256=>bool) public isForSale;
     mapping(uint256=>uint256) public price;
     mapping(uint256=>address payable) public seller;
-    // mapping(uint256=>uint256) public bestOffer;
-    // mapping(uint256=>address) public buyer;
-    // mapping(uint256=>bool) public hasOffer;
+    
     Poemes private poemes;
 
     event Sold(address indexed from, address indexed to, uint256 indexed tokenId);
@@ -16,17 +14,23 @@ contract AchatVente {
     constructor (Poemes _poemes) public {
         poemes = _poemes;
     }
-
+    /// @author Pacôme Eberhart et Raphael Pinto
+    /// @notice disponibilise un contrat à la vente
+    /// @dev autorise un contrat à êter acheté
+    /// @param l'identifiant du poeme et le prix en ether
+    /// @return aucun
     function putOnSale(uint256 _tokenId, uint256 _price) external {
         require(poemes.ownerOf(_tokenId) == msg.sender, 'Not owner of token');
         require(isForSale[_tokenId] == false, 'Already for sale');
         isForSale[_tokenId] = true;
         price[_tokenId] = _price;
         seller[_tokenId] = msg.sender;
-        // bestOffer[_tokenId] = 0;
-        // hasOffer[_tokenId] = false;
     }
-
+    /// @author Pacôme Eberhart et Raphael Pinto
+    /// @notice permet d'acheter un poeme
+    /// @dev l'acheteur doit préalablement avoir été approve
+    /// @param l'identifiant du poeme
+    /// @return un évenement Sold
     function buy(uint256 _tokenId) external payable {
         require(isForSale[_tokenId], 'Not for sale');
         require(msg.value >= price[_tokenId], 'Not enough funds');
@@ -35,6 +39,16 @@ contract AchatVente {
         isForSale[_tokenId] = false;
         emit Sold(seller[_tokenId], msg.sender, _tokenId);
     }
+
+
+    //vente aux enchères (NON IMPLEMENTES!)
+
+    // mapping(uint256=>uint256) public bestOffer;
+    // mapping(uint256=>address) public buyer;
+    // mapping(uint256=>bool) public hasOffer;
+
+    // bestOffer[_tokenId] = 0;
+    // hasOffer[_tokenId] = false;
 
     // function makeOffer(uint256 _tokenId) external payable {
     //     require(isForSale[_tokenId], 'Not for sale');
