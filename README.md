@@ -42,7 +42,7 @@ ganache-cli -p 7545 -i 5777
 2. Excuter la commande "truffle test" dans le répertoire test du dossier cloné.
 
 ```
-truffle test
+npx truffle test
 ```
 
 ### Détails des tests
