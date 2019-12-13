@@ -1,6 +1,6 @@
-# alyra-defi3
+# Crypto Poems
 
-Crypto Poems, un jeu de cryptoactifs basé sur les "Cent mille milliards de poèmes" de Raymond Queneau, publié en 1961
+Crypto Poems, un jeu de cryptoactifs basé sur les "Cent mille milliards de poèmes" de Raymond Queneau, publié en 1961.
 
 ## Comment démarrer
 
@@ -14,7 +14,7 @@ Git v2.17.1
 Truffle v5.1.2  
 Ganache CLI v6.7.0  
 
-Une fois Node installé, vous pourrez obtenir Git et Truffle en tapant les commandes suivantes dans uen console:
+Une fois Node installé, vous pourrez obtenir Git, Truffle et Ganache CLI en tapant les commandes suivantes dans une console:
 ```
 npm install git
 npm install truffle
@@ -46,10 +46,10 @@ truffle test
 
 ### Détails des tests
 
-L'application se compose de deux smarts contracts developpés en Solidity, Poemes.sol et AchatVente.sol .
+L'application se compose de deux smarts contracts developpés en Solidity, Poemes.sol et AchatVente.sol .  
 Toutes les fonctionnalités des deux smarts contracts sont testées.
 
-Les fonctions disponibles dans le contrat Poemes.sol sont celles issues d'un ERC721 classique (totalSuply(), balanceOf(), approve(), etc.).
+Les fonctions disponibles dans le contrat Poemes.sol sont celles issues d'un ERC721 classique (totalSuply(), balanceOf(), approve(), etc.).  
 Une fonction permet d'afficher un poeme dans la console.
 
 Les fonctions disponibles dans le contrat AchatVente.sol permettent de mettre en vente et d'acheter un poeme.	
@@ -62,7 +62,7 @@ Les contrats ne sont pas déployés sur le mainnet.
 
 ## Versions
 
-Crypto Poems de test non publié au 16/12/2019, v1.0.0 à venir.
+Crypto Poems version test non publiée au 16/12/2019, v1.0.0 à venir.  
 L'ensemble du code est disponible ici: https://github.com/eberhartp/alyra-defi3
 
 ## Authors
