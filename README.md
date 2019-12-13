@@ -8,11 +8,11 @@ Procédure à suivre pour installer une copie du jeu sur votre machine et lancer
 
 ### Prérequis
 
-Vous devez disposer des applications suivantes sur votre machine:
-Node v10.13.3
-Git v2.17.1
-Truffle v5.1.2
-Ganache CLI v6.7.0
+Vous devez disposer des applications suivantes sur votre machine:  
+Node v10.13.3  
+Git v2.17.1  
+Truffle v5.1.2  
+Ganache CLI v6.7.0  
 
 Une fois Node installé, vous pourrez obtenir Git et Truffle en tapant les commandes suivantes dans uen console:
 ```
