@@ -1,4 +1,4 @@
-pragma solidity 0.5.12;
+pragma solidity 0.5.14;
 
 /// @title Contrat du jeu Crypto Poems
 /// @author Pacôme Eberhart et Raphael Pinto
@@ -139,7 +139,7 @@ contract Poemes {
     /// @notice affiche dans la console les vers du poeme spécifié
     /// @dev pour les tests
     /// @param poemId identifiant du poeme, verseNumber nombre de vers du poeme
-    /// @return un tableau contenant les 14 vers     
+    /// @return un tableau contenant les 14 vers
     function getVerse(uint256 poemId, uint256 verseNumber) external pure returns(string memory) {
         string[14][10] memory verses = [
             ["Le roi de la pampa retourne sa chemise","pour la mettre à sécher aux cornes des taureaux","le cornédbîf  en boîte empeste la remise","et fermentent de même et les cuirs et les peaux","Je me souviens encor de cette heure exeuquise ","les gauchos dans la plaine agitaient leurs drapeaux","nous avions aussi froid que nus sur la banquise","lorsque pour nous distraire y plantions nos tréteaux","Du pôle à Rosario fait une belle trotte","aventures on eut qui s\'y pique s\'y frotte","lorsqu\' on boit du maté l\'on devient argentin","L\'Amérique du Sud séduit les équivoques ","exaltent l\'espagnol les oreilles baroques","si la cloche se tait et son terlintintin"],

@@ -1,4 +1,4 @@
-pragma solidity 0.5.12;
+pragma solidity 0.5.14;
 
 import "./Poemes.sol";
 
@@ -6,7 +6,7 @@ contract AchatVente {
     mapping(uint256=>bool) public isForSale;
     mapping(uint256=>uint256) public price;
     mapping(uint256=>address payable) public seller;
-    
+
     Poemes private poemes;
 
     event Sold(address indexed from, address indexed to, uint256 indexed tokenId);
@@ -34,10 +34,10 @@ contract AchatVente {
     function buy(uint256 _tokenId) external payable {
         require(isForSale[_tokenId], 'Not for sale');
         require(msg.value >= price[_tokenId], 'Not enough funds');
-        poemes.safeTransferFrom(seller[_tokenId], msg.sender, _tokenId);
-        seller[_tokenId].transfer(msg.value);
         isForSale[_tokenId] = false;
+        seller[_tokenId].transfer(msg.value);
         emit Sold(seller[_tokenId], msg.sender, _tokenId);
+        poemes.safeTransferFrom(seller[_tokenId], msg.sender, _tokenId);
     }
 
 
