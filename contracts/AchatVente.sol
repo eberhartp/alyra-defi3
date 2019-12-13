@@ -17,7 +17,7 @@ contract AchatVente {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice disponibilise un contrat à la vente
     /// @dev autorise un contrat à êter acheté
-    /// @param l'identifiant du poeme et le prix en ether
+    /// @param _tokenId identifiant du poeme, _price prix en ether
     /// @return aucun
     function putOnSale(uint256 _tokenId, uint256 _price) external {
         require(poemes.ownerOf(_tokenId) == msg.sender, 'Not owner of token');
@@ -29,7 +29,7 @@ contract AchatVente {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice permet d'acheter un poeme
     /// @dev l'acheteur doit préalablement avoir été approve
-    /// @param l'identifiant du poeme
+    /// @param _tokenId identifiant du poeme
     /// @return un évenement Sold
     function buy(uint256 _tokenId) external payable {
         require(isForSale[_tokenId], 'Not for sale');

@@ -23,7 +23,6 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice renvoi le nombre total de poemes
     /// @dev comme le ERC721
-    /// @param aucun
     /// @return nombre de poemes en uint256
     function totalSupply() external view returns(uint256) {
         return nombreTotalPoemes;
@@ -31,7 +30,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice renvoi le nombre de poemes possédés par un joueur
     /// @dev comme le ERC721
-    /// @param adresse du joueur
+    /// @param _proprietaire adresse du joueur
     /// @return nombre de poemes du joueur en uint256
     function balanceOf(address _proprietaire) external view returns(uint256) {
         return proprietaireNombrePoemes[_proprietaire];
@@ -39,7 +38,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice indique qui est le propriétaire d'un poeme
     /// @dev comme le ERC721
-    /// @param identifiant du poeme
+    /// @param _indicePoeme identifiant du poeme
     /// @return adresse du joueur en possession du poeme
     function ownerOf(uint _indicePoeme) external view returns(address) {
         return poemeVersProprietaire[_indicePoeme];
@@ -47,7 +46,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice transfert la propriété d'un poeme d'un jouer à un autre
     /// @dev comme le ERC721
-    /// @param adresse du propriétaire, addresse du destinataire, identifiant du poeme
+    /// @param _from adresse du propriétaire, _to addresse du destinataire, _tokenId identifiant du poeme
     /// @return renvoi un événement Transfer
     function safeTransferFrom(address _from, address _to, uint256 _tokenId) external {
         require(_from != address(0), 'Address from is null');
@@ -64,7 +63,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice autorise une adresse à éffectuer un transfert de propriété d'un poeme
     /// @dev comme le ERC721
-    /// @param l'addresse qui sera autorisée, l'identifiant du poeme
+    /// @param _to adresse qui sera autorisée, _tokenId identifiant du poeme
     /// @return un évenement Approval
     function approve(address _to, uint256 _tokenId) external {
         require(_to != address(0), 'Address to is null');
@@ -76,7 +75,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice renvoi l'adresse autorisée à éffectuer un transfert de propriété d'un poeme
     /// @dev comme le ERC721
-    /// @param l'identifiant du poeme
+    /// @param _tokenId identifiant du poeme
     /// @return l'addresse autorisée
     function getApproved(uint256 _tokenId) external view returns(address) {
         require(poemeExiste[_tokenId], 'Poem does not exist');
@@ -85,7 +84,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice définit l'autorisation d'une adresse à transférer la propriété de tous les poèmes d'un joueur
     /// @dev comme le ERC721
-    /// @param l'adresse qui seras autorisée, le booléen true ou false
+    /// @param operator adresse qui seras autorisée, approved booléen true ou false
     /// @return l'évenement ApprovalForAll
     function setApprovalForAll(address operator, bool approved) external {
         require(operator != address(0), 'Operator address is null');
@@ -95,7 +94,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice indique si une adresse est autorisée à transférer la propriété de tous les poemes d'un joueur
     /// @dev comme le ERC721
-    /// @param l'adresse du propriétaire, l'adresse autorisée
+    /// @param owner adresse du propriétaire, operator adresse autorisée
     /// @return un booléen true ou false
     function isApprovedForAll(address owner, address operator) external view returns(bool){
         require(owner != address(0), 'Owner adress is null');
@@ -105,7 +104,6 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice renvoi un nombre aléatoire
     /// @dev méthode simpliste
-    /// @param aucun
     /// @return un uint256
     function random() internal view returns(uint256) {
         return uint256(blockhash(block.number - 1));
@@ -114,7 +112,6 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice créer un nouveau poeme
     /// @dev génere un nouvel identifiant de poeme et vérifie qu'il n'existe pas déjà
-    /// @param aucun
     /// @return l'identifiant du nouveau poeme en uint256
     function generatePoem() external payable returns(uint256) {
         require(msg.value >= 0.1 ether, 'Not enough funds');
@@ -133,7 +130,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice indique si un poeme existe déjà
     /// @dev renvoi la valeur contenu dans le mapping poemeExiste
-    /// @param l'identifiant du poeme testé
+    /// @param poemId identifiant du poeme testé
     /// @return un booléen true ou false
     function poemExists(uint256 poemId) external view returns(bool){
         return poemeExiste[poemId];
@@ -141,7 +138,7 @@ contract Poemes {
     /// @author Pacôme Eberhart et Raphael Pinto
     /// @notice affiche dans la console les vers du poeme spécifié
     /// @dev pour les tests
-    /// @param l'identifiant du poeme, le nombre de vers
+    /// @param poemId identifiant du poeme, verseNumber nombre de vers du poeme
     /// @return un tableau contenant les 14 vers     
     function getVerse(uint256 poemId, uint256 verseNumber) external pure returns(string memory) {
         string[14][10] memory verses = [
