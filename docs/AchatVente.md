@@ -1,24 +1,11 @@
-[Poemes]: Poemes.md#Poemes
-[Poemes-poemeVersProprietaire-mapping-uint256----address-]: Poemes.md#Poemes-poemeVersProprietaire-mapping-uint256----address-
-[Poemes-proprietaireNombrePoemes-mapping-address----uint256-]: Poemes.md#Poemes-proprietaireNombrePoemes-mapping-address----uint256-
-[Poemes-proprietairePoemesId-mapping-address----uint256---]: Poemes.md#Poemes-proprietairePoemesId-mapping-address----uint256---
-[Poemes-transferApproval-mapping-address----mapping-address----bool--]: Poemes.md#Poemes-transferApproval-mapping-address----mapping-address----bool--
-[Poemes-tokenApproval-mapping-uint256----address-]: Poemes.md#Poemes-tokenApproval-mapping-uint256----address-
-[Poemes-totalSupply--]: Poemes.md#Poemes-totalSupply--
-[Poemes-balanceOf-address-]: Poemes.md#Poemes-balanceOf-address-
-[Poemes-ownerOf-uint256-]: Poemes.md#Poemes-ownerOf-uint256-
-[Poemes-safeTransferFrom-address-address-uint256-]: Poemes.md#Poemes-safeTransferFrom-address-address-uint256-
-[Poemes-approve-address-uint256-]: Poemes.md#Poemes-approve-address-uint256-
-[Poemes-getApproved-uint256-]: Poemes.md#Poemes-getApproved-uint256-
-[Poemes-setApprovalForAll-address-bool-]: Poemes.md#Poemes-setApprovalForAll-address-bool-
-[Poemes-isApprovedForAll-address-address-]: Poemes.md#Poemes-isApprovedForAll-address-address-
-[Poemes-random--]: Poemes.md#Poemes-random--
-[Poemes-generatePoem--]: Poemes.md#Poemes-generatePoem--
-[Poemes-poemExists-uint256-]: Poemes.md#Poemes-poemExists-uint256-
-[Poemes-getVerse-uint256-uint256-]: Poemes.md#Poemes-getVerse-uint256-uint256-
-[Poemes-Transfer-address-address-uint256-]: Poemes.md#Poemes-Transfer-address-address-uint256-
-[Poemes-Approval-address-address-uint256-]: Poemes.md#Poemes-Approval-address-address-uint256-
-[Poemes-ApprovalForAll-address-address-bool-]: Poemes.md#Poemes-ApprovalForAll-address-address-bool-
+[AchatVente]: #AchatVente
+[AchatVente-isForSale-mapping-uint256----bool-]: #AchatVente-isForSale-mapping-uint256----bool-
+[AchatVente-price-mapping-uint256----uint256-]: #AchatVente-price-mapping-uint256----uint256-
+[AchatVente-seller-mapping-uint256----address-payable-]: #AchatVente-seller-mapping-uint256----address-payable-
+[AchatVente-constructor-contract-Poemes-]: #AchatVente-constructor-contract-Poemes-
+[AchatVente-putOnSale-uint256-uint256-]: #AchatVente-putOnSale-uint256-uint256-
+[AchatVente-buy-uint256-]: #AchatVente-buy-uint256-
+[AchatVente-Sold-address-address-uint256-]: #AchatVente-Sold-address-address-uint256-
 ## <span id="AchatVente"></span> `AchatVente`
 
 
