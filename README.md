@@ -9,15 +9,11 @@ Procédure à suivre pour installer une copie du jeu sur votre machine et lancer
 ### Prérequis
 
 Vous devez disposer des applications suivantes sur votre machine:  
-Node v10.13.3  
-Git v2.17.1  
-Truffle v5.1.2  
+Node v10.13.3
 Ganache CLI v6.7.0  
 
-Une fois Node installé, vous pourrez obtenir Git, Truffle et Ganache CLI en tapant les commandes suivantes dans une console:
+Une fois Node installé, vous pourrez obtenir Ganache CLI en tapant la commandes suivantes dans une console:
 ```
-npm install git
-npm install truffle
 npm install ganache-cli
 ```
 
@@ -29,13 +25,18 @@ Dans un nouveau dossier, faites un clone du repository git sur votre machine:
 git clone https://github.com/eberhartp/alyra-defi3.git
 ```
 
+Puis installez les dépendances dans le dossier du repository avec la commande
+```
+npm install
+```
+
 ## Executer les tests
 
 Les tests se lancent en deux étapes:
 1. Lancer une blockchain ethereum locale à l'aide de Ganache CLI en spécifiant le port et le réseau comme ci-dessous:
 
 ```
-ganache-cli p-7545 -i 5777
+ganache-cli -p 7545 -i 5777
 ```
 
 2. Excuter la commande "truffle test" dans le répertoire test du dossier cloné.

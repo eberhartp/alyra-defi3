@@ -1,4 +1,4 @@
-pragma solidity 0.5.14;
+pragma solidity 0.5.12;
 
 /// @title Contrat du jeu Crypto Poems
 /// @author Pacôme Eberhart et Raphael Pinto
