@@ -12,7 +12,7 @@ Vous devez disposer des applications suivantes sur votre machine:
 Node v10.13.3  
 Ganache CLI v6.7.0  
 
-Une fois Node installé, vous pourrez obtenir Ganache CLI en tapant la commandes suivantes dans une console:
+Une fois Node installé, vous pourrez obtenir Ganache CLI en tapant la commande suivante dans une console:
 ```
 npm install ganache-cli
 ```
